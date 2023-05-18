@@ -17,7 +17,6 @@ resource "aws_s3_bucket_website_configuration" "example" {
     key = "index.html"
   }
   }
-}
 
 
 resource "aws_s3_bucket_policy" "example_bucket_policy" {

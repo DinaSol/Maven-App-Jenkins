@@ -31,7 +31,7 @@ resource "aws_s3_bucket_policy" "example_bucket_policy" {
             "Effect": "Allow",
             "Principal": "*",
             "Action": "s3:GetObject",
-            "Resource": "aws_s3_bucket.web-s3.arn/*"
+            "Resource": "aws_s3_bucket.web-s3.id/*"
         }
     ]
 })

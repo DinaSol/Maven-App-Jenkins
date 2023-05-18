@@ -32,7 +32,7 @@ resource "aws_s3_bucket_policy" "example_bucket_policy" {
             "Effect": "Allow",
             "Principal": "*",
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::ezekiel-20230327/*"
+            "Resource": "aws_s3_bucket.web-s3.arn/*"
         }
     ]
 })

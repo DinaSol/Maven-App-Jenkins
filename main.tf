@@ -2,6 +2,8 @@
 resource "aws_s3_bucket" "web-s3" {
   bucket = "web-s3.com"
 }
+
+
 resource "aws_s3_bucket_website_configuration" "web-s3-website" {
   bucket = aws_s3_bucket.web-s3.id
 
@@ -12,6 +14,9 @@ resource "aws_s3_bucket_website_configuration" "web-s3-website" {
     key = "index.html"
   }
 }
+
+
+
 resource "aws_s3_bucket_public_access_block" "example" {
   bucket = aws_s3_bucket.web-s3.id
 
@@ -21,22 +26,21 @@ resource "aws_s3_bucket_public_access_block" "example" {
   restrict_public_buckets = false
 }
 
-resource "aws_s3_bucket_policy" "my_bucket_policy" {
-  bucket = aws_s3_bucket.web-s3.id
 
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Principal = "*"
-        Action = [
-          "s3:GetObject"
-        ]
-        Resource = [
-          "${aws_s3_bucket.web-s3.arn}/*"
-        ]
-      }
-    ]
-  })
+
+resource "aws_s3_bucket_policy" "allow_access_from_another_account" {
+  bucket = aws_s3_bucket.web-s3.id
+  policy = data.aws_iam_policy_document.allow_access_from_another_account.json
 }
+
+data "aws_iam_policy_document" "allow_access_from_another_account" {
+ statement {
+    actions = [
+      "s3:*",
+    ]
+
+    resources = [
+      aws_s3_bucket.example.arn,
+      "${aws_s3_bucket.web-s3.arn}/*",
+    ]
+  }

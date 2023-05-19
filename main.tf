@@ -28,11 +28,6 @@ resource "aws_s3_bucket_public_access_block" "example" {
 
 
 
-resource "aws_s3_bucket_policy" "allow_access_from_another_account" {
-  bucket = aws_s3_bucket.web-s3.id
-  policy = data.aws_iam_policy_document.allow_access_from_another_account.json
-}
-
 data "aws_iam_policy_document" "allow_access_from_another_account" {
  statement {
     actions = [
@@ -45,3 +40,10 @@ data "aws_iam_policy_document" "allow_access_from_another_account" {
     ]
   }
 }
+
+resource "aws_s3_bucket_policy" "allow_access_from_another_account" {
+  bucket = aws_s3_bucket.web-s3.id
+  policy = data.aws_iam_policy_document.allow_access_from_another_account.json
+}
+
+# Principal": "*"

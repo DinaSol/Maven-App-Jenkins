@@ -44,3 +44,4 @@ data "aws_iam_policy_document" "allow_access_from_another_account" {
       "${aws_s3_bucket.web-s3.arn}/*",
     ]
   }
+}
